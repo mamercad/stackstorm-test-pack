@@ -71,6 +71,7 @@ class AWX(object):
     def summary(self):
         next = f"/api/v2/jobs/{self.job_id}/job_host_summaries/?page_size=1"
         self.results = {}
+        print("Job hosts summary:")
         while next:
             r = requests.get(url=self.tower_host + next, headers=self.headers)
             if r.status_code != 200:

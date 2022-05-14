@@ -34,7 +34,7 @@ class HelloSensor(Sensor):
             payload = {"greeting": "Yo, StackStorm!", "count": int(count) + 1}
             self.sensor_service.dispatch(trigger="test.event1", payload=payload)
             self.sensor_service.set_value("test.count", payload["count"])
-            eventlet.sleep(3600)
+            eventlet.sleep(60)
 
     def cleanup(self):
         self._stop = True

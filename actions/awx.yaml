@@ -23,7 +23,3 @@ parameters:
         required: true
         position: 3
         secret: false
-    timeout:
-        type: string
-        description: Timeout
-        default: 300

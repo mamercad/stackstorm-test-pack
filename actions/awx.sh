@@ -20,4 +20,4 @@ JOB_ID="$(cat $TMP_FILE | jq -r .job)"
 
 curl -s -H "Authorization: Bearer ${TOWER_OAUTH_TOKEN}" \
   "${TOWER_HOST}/api/v2/jobs/${JOB_ID}/job_host_summaries/" \
-    | jq -r .
+    | jq -r '.results[] | (.host_name+" "+(.failed|tostring))'

@@ -10,4 +10,4 @@ source "/opt/stackstorm/virtualenvs/${ST2_ACTION_PACK_NAME}/bin/activate"
 
 awx --conf.host "$TOWER_HOST" --conf.token "$TOWER_OAUTH_TOKEN" --conf.color "f" -f "json" --wait \
     job_template launch --inventory "$INVENTORY" --limit "$LIMIT" \
-    "${JOB_TEMPLATE}"
+      "${JOB_TEMPLATE}"

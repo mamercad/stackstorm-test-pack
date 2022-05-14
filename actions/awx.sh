@@ -8,6 +8,6 @@ LIMIT="$5"
 
 source "/opt/stackstorm/virtualenvs/${ST2_ACTION_PACK_NAME}/bin/activate"
 
-awx --conf.host "$TOWER_HOST" --conf.token "$TOWER_OAUTH_TOKEN" --conf.color "f" \
-  --inventory "$INVENTORY" --limit "$LIMIT" \
-    job_template launch --wait "${JOB_TEMPLATE}" -f "json"
+awx --conf.host "$TOWER_HOST" --conf.token "$TOWER_OAUTH_TOKEN" --conf.color "f" -f "json" --wait \
+    job_template launch --inventory "$INVENTORY" --limit "$LIMIT" \
+    "${JOB_TEMPLATE}"

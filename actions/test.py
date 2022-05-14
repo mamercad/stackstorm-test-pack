@@ -5,4 +5,5 @@ from pprint import pprint
 
 class TestAction(Action):
     def run(self, *args, **kwargs):
+        pprint(args)
         pprint(kwargs)

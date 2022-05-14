@@ -36,3 +36,6 @@ parameters:
         description: Job template extra_vars
         required: false
         secret: false
+    timeout:
+        type: string
+        default: 300

@@ -11,6 +11,7 @@ parameters:
         description: AWX host
         required: true
         position: 1
+        secret: false
     tower_oauth_token:
         type: string
         description: AWX OAuth token

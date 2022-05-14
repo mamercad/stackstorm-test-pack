@@ -7,7 +7,7 @@ EXTRA_VARS="$4"
 INVENTORY="$5"
 LIMIT="$6"
 
-TMP_FILE="/tmp/${0}.$$"
+TMP_FILE="/tmp/$(basename $0).$$"
 
 source "/opt/stackstorm/virtualenvs/${ST2_ACTION_PACK_NAME}/bin/activate"
 

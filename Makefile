@@ -11,3 +11,7 @@ run:
 		inventory_id=4 \
 		limit="localhost,localhost0,localhost1" \
 		extra_vars='{"foo":"bar","fiz":42}'
+
+.PHONY: test
+test:
+	st2 run test.test

@@ -10,4 +10,5 @@ class AWXJTAction(Action):
         a.ping()
         a.launch()
         a.poll()
-        a.summary()
+        passed, results = a.summary()
+        return(passed, results)

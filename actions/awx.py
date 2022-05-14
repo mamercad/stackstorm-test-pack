@@ -85,4 +85,4 @@ class AWX(object):
                 hostname = result.get("host_name")
                 print(f"{hostname} {status}")
                 self.results[hostname] = status
-        print(json.dumps(self.results), end="")
+        return(True, self.results)

@@ -1,45 +1,33 @@
 ---
 name: awx
 pack: test
-runner_type: local-shell-script
-description: Launches and AWX Job Template
+runner_type: python-script
+description: Launches an AWX job template and returns the host summary
 enabled: true
-entry_point: awx.sh
+entry_point: awx.py
 parameters:
     tower_host:
         type: string
         description: AWX host
         required: true
-        position: 1
         secret: false
     tower_oauth_token:
         type: string
         description: AWX OAuth token
         required: true
-        position: 2
         secret: true
-    job_template:
+    job_template_id:
         type: string
-        description: AWX Job Template
+        description: AWX job template ID
         required: true
-        position: 3
         secret: false
-    extra_vars:
+    inventory_id:
         type: string
-        description: Job Template Extra Vars
-        required: false
-        default: "{}"
-        position: 4
-        secret: false
-    inventory:
-        type: string
-        description: Job Template Inventory
+        description: AWX inventory ID
         required: true
-        position: 5
         secret: false
     limit:
         type: string
-        description: Job Template limit
+        description: Job template limit
         required: true
-        position: 6
         secret: false

@@ -37,5 +37,5 @@ parameters:
         required: false
         secret: false
     timeout:
-        type: string
+        type: number
         default: 300

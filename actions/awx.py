@@ -1,21 +1,20 @@
 #!/usr/bin/env python3
 
-import logging
 import json
 import requests
 import time
-import logging
 
 
 class AWX(object):
     def __init__(
-        self, tower_host, tower_oauth_token, job_template_id, inventory_id, limit
+        self, tower_host, tower_oauth_token, job_template_id, inventory_id, limit, extra_vars
     ) -> None:
         self.tower_host = tower_host
         self.tower_oauth_token = tower_oauth_token
         self.job_template_id = job_template_id
         self.inventory_id = inventory_id
         self.limit = limit
+        self.extra_vars = extra_vars
         self.headers = {
             "Authorization": f"Bearer {self.tower_oauth_token}",
             "Content-type": "application/json",
@@ -25,7 +24,7 @@ class AWX(object):
         r = requests.get(url=self.tower_host)
         if r.status_code != 200:
             raise RuntimeError(f"Couldn't ping AWX; status code is {r.status_code}")
-        logging.debug(f"Hello from AWX at {self.tower_host}")
+        print(f"Hello from AWX at {self.tower_host}")
 
     def launch(self):
         r = requests.post(
@@ -34,6 +33,7 @@ class AWX(object):
             json={
                 "inventory": self.inventory_id,
                 "limit": self.limit,
+                "extra_vars": self.extra_vars,
             },
             headers=self.headers,
         )
@@ -45,7 +45,7 @@ class AWX(object):
             raise RuntimeError(f"Didn't get a job ID or URL")
 
         self.job_id = job_id
-        logging.debug(
+        print(
             f"Launched job template {self.job_template_id} (inventory {self.inventory_id}, limit '{self.limit}'); job ID is {self.job_id}"
         )
 
@@ -62,7 +62,7 @@ class AWX(object):
             finished = r.json().get("finished")
             elapsed = r.json().get("elapsed")
             status = r.json().get("status")
-            logging.debug(f"Polling job {self.job_id}: {status}, {elapsed}s elapsed")
+            print(f"Polling job {self.job_id}: {status}, {elapsed}s elapsed")
             time.sleep(1)
 
     def summary(self):
@@ -80,6 +80,6 @@ class AWX(object):
             for result in results:
                 status = "failed" if result.get("failed") else "passed"
                 hostname = result.get("host_name")
-                logging.debug(f"{hostname} {status}")
+                print(f"{hostname} {status}")
                 self.results[hostname] = status
         print(json.dumps(self.results), end="")

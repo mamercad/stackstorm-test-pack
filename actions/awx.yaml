@@ -24,10 +24,15 @@ parameters:
     inventory_id:
         type: string
         description: AWX inventory ID
-        required: true
+        required: false
         secret: false
     limit:
         type: string
         description: Job template limit
-        required: true
+        required: false
+        secret: false
+    extra_vars:
+        type: string
+        description: Job template extra_vars
+        required: false
         secret: false

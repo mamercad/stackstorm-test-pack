@@ -12,15 +12,18 @@ parameters:
         required: true
         position: 1
     tower_oauth_token:
+        type: string
         description: AWX OAuth token
         required: true
         position: 2
         secret: true
     job_template:
+        type: string
         description: AWX Job Template
         required: true
         position: 3
         secret: false
     timeout:
+        type: string
         description: Timeout
         default: 300

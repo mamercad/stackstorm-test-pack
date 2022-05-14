@@ -1,0 +1,26 @@
+---
+name: awx
+pack: test
+runner_type: local-shell-script
+description: Launches and AWX Job Template
+enabled: true
+entry_point: awx.sh
+parameters:
+    tower_host:
+        type: string
+        description: AWX host
+        required: true
+        position: 1
+    tower_oauth_token:
+        description: AWX OAuth token
+        required: true
+        position: 2
+        secret: true
+    job_template:
+        description: AWX Job Template
+        required: true
+        position: 3
+        secret: false
+    timeout:
+        description: Timeout
+        default: 300

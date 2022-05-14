@@ -82,4 +82,4 @@ class AWX(object):
                 hostname = result.get("host_name")
                 logging.debug(f"{hostname} {status}")
                 self.results[hostname] = status
-        print(json.dumps(self.results))
+        print(json.dumps(self.results), end="")

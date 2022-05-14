@@ -2,7 +2,7 @@
 name: on_hello_event1
 pack: test
 description: Sample rule firing on test.event1.
-enabled: true
+enabled: false
 trigger:
     type: test.event1
 action:

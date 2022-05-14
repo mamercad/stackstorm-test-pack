@@ -1,5 +1,5 @@
 ---
-name: awx
+name: awxjt
 pack: test
 runner_type: python-script
 description: Launches an AWX job template and returns the host summary

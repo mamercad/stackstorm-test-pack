@@ -24,3 +24,15 @@ parameters:
         required: true
         position: 3
         secret: false
+    inventory:
+        type: string
+        description: Job Template Inventory
+        required: true
+        position: 4
+        secret: false
+    limit:
+        type: string
+        description: Job Template limit
+        required: true
+        position: 5
+        secret: false

@@ -4,7 +4,7 @@ pack: test
 runner_type: python-script
 description: Launches an AWX job template and returns the host summary
 enabled: true
-entry_point: awx.py
+entry_point: awxjt.py
 parameters:
     tower_host:
         type: string

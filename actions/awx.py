@@ -1,12 +1,10 @@
 #!/usr/bin/env python3
 
+import logging
 import json
-import os
 import requests
 import time
 import logging
-
-from st2common.runners.base_action import Action
 
 
 class AWX(object):
@@ -85,32 +83,3 @@ class AWX(object):
                 logging.debug(f"{hostname} {status}")
                 self.results[hostname] = status
         print(json.dumps(self.results))
-
-
-class AWXAction(object):
-    def run(
-        self,
-        tower_host,
-        tower_oauth_token,
-        job_template_id,
-        inventory_id,
-        limit,
-    ):
-        a = AWX(tower_host, tower_oauth_token, job_template_id, inventory_id, limit)
-        a.ping()
-        a.launch()
-        a.poll()
-        a.summary()
-
-
-class AWXAction(Action):
-    def run(self, tower_host, tower_oauth_token, job_template_id, inventory_id, limit):
-        logging.basicConfig(level=logging.INFO)
-        awx = AWXAction()
-        awx.run(
-            tower_host=tower_host,
-            tower_oauth_token=tower_oauth_token,
-            job_template_id=job_template_id,
-            inventory_id=inventory_id,
-            limit=limit,
-        )

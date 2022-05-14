@@ -22,12 +22,12 @@ parameters:
         required: true
         secret: false
     inventory_id:
-        type: string
+        type: integer
         description: AWX inventory ID
         required: false
         secret: false
     limit:
-        type: string
+        type: integer
         description: Job template limit
         required: false
         secret: false
@@ -37,5 +37,5 @@ parameters:
         required: false
         secret: false
     timeout:
-        type: number
+        type: integer
         default: 300

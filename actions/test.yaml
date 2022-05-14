@@ -5,6 +5,3 @@ runner_type: python-script
 description: Test action
 enabled: true
 entry_point: test.py
-parameters:
-    env:
-        type: object

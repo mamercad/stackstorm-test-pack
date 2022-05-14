@@ -27,6 +27,9 @@ class AWX(object):
         print(f"Hello from AWX at {self.tower_host}")
 
     def launch(self):
+        print(f"Job template ID is {self.job_template_id}")
+        print(f"Inventory ID is {self.inventory_id}")
+        print(f"Extra vars are {self.extra_vars}")
         r = requests.post(
             url=self.tower_host
             + f"/api/v2/job_templates/{self.job_template_id}/launch/",
@@ -46,7 +49,7 @@ class AWX(object):
 
         self.job_id = job_id
         print(
-            f"Launched job template {self.job_template_id} (inventory {self.inventory_id}, limit '{self.limit}'); job ID is {self.job_id}"
+            f"Launched job template {self.job_template_id}; job ID is {self.job_id}"
         )
 
     def poll(self):

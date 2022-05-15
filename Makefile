@@ -4,4 +4,5 @@ install:
 
 .PHONY: test
 test: install
-	st2 run test.jira
+	st2 run test.jira \
+		create='{"project":"HOME","summary":"Testing from StackStorm",description:"Testing one two three","issuetype"={"name":"Bug"}}'

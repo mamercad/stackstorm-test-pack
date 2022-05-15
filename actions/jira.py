@@ -2,6 +2,7 @@
 
 from st2common.runners.base_action import Action
 from lib import jira
+import sys
 
 
 class TestAction(Action):
@@ -13,6 +14,10 @@ class TestAction(Action):
         comment = kwargs.get("comment")
 
         j = jira.Jira(*args, **kwargs)
+
+        if not create and not comment:
+            sys.stderr.write("Missing 'create' and 'comment'")
+            sys.exit(1)
 
         if create:
             j.create()

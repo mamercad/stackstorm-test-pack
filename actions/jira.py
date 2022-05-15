@@ -7,6 +7,7 @@ import sys
 
 class TestAction(Action):
     def run(self, *args, **kwargs):
+        endpoint = kwargs.get("endpoint")
         username = kwargs.get("username")
         password = kwargs.get("password")
         api_token = kwargs.get("api_token")

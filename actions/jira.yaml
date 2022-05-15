@@ -6,9 +6,13 @@ description: Does the Jira things
 enabled: true
 entry_point: jira.py
 parameters:
+    endpoint:
+        type: string
+        required: true
+        description: "Jira endpoint - ex: https://jira.atlassian.com"
     username:
         type: string
-        required: false
+        required: true
         description: Jira username (only works for Jira on-premises); used if set along with password
     password:
         type: string

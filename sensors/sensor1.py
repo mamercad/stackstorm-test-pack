@@ -22,6 +22,7 @@ class HelloSensor(Sensor):
     def __init__(self, sensor_service, config):
         super(HelloSensor, self).__init__(sensor_service=sensor_service, config=config)
         self._logger = self.sensor_service.get_logger(name=self.__class__.__name__)
+        self._trigger_ref = "test.event1"
         self._stop = False
 
     def setup(self):
@@ -36,9 +37,9 @@ class HelloSensor(Sensor):
                 "count": int(count) + 1,
                 "hello": self._config.get("hello"),
             }
-            self.sensor_service.dispatch(trigger="test.event1", payload=payload)
+            self.sensor_service.dispatch(trigger=self._trigger_ref, payload=payload)
             self.sensor_service.set_value("test.count", payload["count"])
-            eventlet.sleep(60)
+            eventlet.sleep(self._config.get("sleep"))
 
     def cleanup(self):
         self._stop = True

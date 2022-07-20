@@ -3,3 +3,8 @@ hello:
   type: string
   required: false
   default: world
+sleep:
+  description: Sleep (seconds)
+  type: integer
+  required: false
+  default: 300

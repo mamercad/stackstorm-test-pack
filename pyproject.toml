@@ -8,6 +8,7 @@ license = "GPLv3"
 [tool.poetry.dependencies]
 python = "^3.9"
 awxkit = "20.0.1"
+eventlet = "^0.33.1"
 
 [tool.poetry.dev-dependencies]
 

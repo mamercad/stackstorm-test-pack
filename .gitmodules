@@ -1,0 +1,3 @@
+[submodule "st2"]
+	path = st2
+	url = https://github.com/StackStorm/st2.git

@@ -1,0 +1,5 @@
+hello:
+  description: Hello
+  type: string
+  required: false
+  default: world

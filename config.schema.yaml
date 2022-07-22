@@ -10,6 +10,6 @@ sleep:
   default: 300
 things:
   description: Things
-  type: list
+  type: array
   required: false
   default: []

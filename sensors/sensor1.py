@@ -31,8 +31,8 @@ class HelloSensor(Sensor):
 
     def _things(self):
         x = []
-        for i in range(randint(0,3)):
-            x.append(randint(0,3))
+        for i in range(randint(0, 3)):
+            x.append({"number": randint(0, 3)})
         return x
 
     def run(self):

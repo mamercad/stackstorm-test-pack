@@ -23,7 +23,7 @@ class HelloSensor(Sensor):
     def __init__(self, sensor_service, config):
         super(HelloSensor, self).__init__(sensor_service=sensor_service, config=config)
         self._logger = self.sensor_service.get_logger(name=self.__class__.__name__)
-        self._trigger_ref = "test.event1"
+        self._trigger_ref = "test.sensor1"
         self._stop = False
 
     def setup(self):

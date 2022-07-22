@@ -7,7 +7,7 @@ sleep:
   description: Sleep (seconds)
   type: integer
   required: false
-  default: 300
+  default: 60
 things:
   description: Things
   type: array

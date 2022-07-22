@@ -8,3 +8,8 @@ sleep:
   type: integer
   required: false
   default: 300
+things:
+  description: Things
+  type: list
+  required: false
+  default: []

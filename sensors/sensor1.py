@@ -15,6 +15,7 @@
 
 import eventlet
 
+from random import randint
 from st2reactor.sensor.base import Sensor
 
 
@@ -28,6 +29,12 @@ class HelloSensor(Sensor):
     def setup(self):
         pass
 
+    def _things(self):
+        x = []
+        for i in range(randint(0,3)):
+            x.append(randint(0,3))
+        return x
+
     def run(self):
         while not self._stop:
             self._logger.debug("HelloSensor dispatching trigger...")
@@ -36,6 +43,7 @@ class HelloSensor(Sensor):
                 "greeting": "Yo, StackStorm!",
                 "count": int(count) + 1,
                 "hello": self._config.get("hello"),
+                "things": self._things(),
             }
             self.sensor_service.dispatch(trigger=self._trigger_ref, payload=payload)
             self.sensor_service.set_value("test.count", payload["count"])

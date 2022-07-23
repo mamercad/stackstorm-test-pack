@@ -44,6 +44,17 @@ class HelloSensor(Sensor):
                 "count": int(count) + 1,
                 "hello": self._config.get("hello"),
                 "things": self._things(),
+                "x": {
+                    "a": {
+                        "d": [1, 2, 3],
+                    },
+                    "b": {
+                        "e": [4, 5, 6],
+                    },
+                    "c": {
+                        "f": [7, 8, 9],
+                    },
+                },
             }
             self.sensor_service.dispatch(trigger=self._trigger_ref, payload=payload)
             self.sensor_service.set_value("test.count", payload["count"])

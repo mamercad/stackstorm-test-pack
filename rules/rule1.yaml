@@ -10,7 +10,8 @@ trigger:
 criteria:
     trigger.x:
         type: exists
-        pattern: a
+        # pattern: a
+        pattern: z
 
 # criteria:
 #     trigger.things:

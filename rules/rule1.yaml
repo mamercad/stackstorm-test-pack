@@ -8,13 +8,18 @@ trigger:
     type: test.event1
 
 criteria:
-    trigger.things:
-        type: search
-        condition: any
-        pattern:
-            item.number:
-                type: equals
-                pattern: 2
+    trigger.x:
+        type: exists
+        pattern: a
+
+# criteria:
+#     trigger.things:
+#         type: search
+#         condition: any
+#         pattern:
+#             item.number:
+#                 type: equals
+#                 pattern: 2
 
 action:
     ref: test.greet

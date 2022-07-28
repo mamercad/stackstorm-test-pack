@@ -1,0 +1,7 @@
+---
+name: greet
+pack: test
+description: "Greet StackStorm"
+action_ref: "test.greet"
+formats:
+  - "greet {{greeting}}"

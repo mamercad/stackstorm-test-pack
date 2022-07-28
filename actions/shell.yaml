@@ -4,5 +4,5 @@ pack: test
 runner_type: local-shell-script
 description: simple shell script
 enabled: true
-entry_point: greet.sh
+entry_point: shell.sh
 parameters: {}

@@ -1,7 +1,8 @@
 ---
-name: test
+name: python
 pack: test
 runner_type: python-script
-description: Test action
+description: simple python script
 enabled: true
-entry_point: test.py
+entry_point: python.py
+parameters: {}

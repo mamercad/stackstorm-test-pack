@@ -12,12 +12,14 @@ output:
   - greeting: <% ctx().greeting %>
 
 tasks:
+
   task1:
     action: core.echo message=<% ctx().name %>
     next:
       - when: <% succeeded() %>
         publish: greeting=<% result().stdout %>
         do: task2
+
   task2:
     action: core.echo
     input:
@@ -28,19 +30,33 @@ tasks:
           - greeting: <% ctx("greeting") %>, <% result().stdout %>
         do:
           - task3
+
   task3:
     action: core.echo message=<% ctx('greeting') %>
     next:
       - when: <% succeeded() %>
         publish: greeting=<% result().stdout %>
+
   task4:
     action: core.ask
+    input:
+      schema:
+        type: object
+        properties:
+          approved:
+            type: boolean
+            description: "Continue?"
+            required: True
     next:
-      - when: <% task(task3).response.continue = true %>
+      - when: <% succeeded() %>
         do: task5
-      - when: <% task(task3).response.continue = false %>
+      - when: <% failed() %>
         do: task6
+
   task5:
     action: core.echo message="Yes"
+
   task6:
     action: core.echo message="No"
+    next:
+      - do: fail

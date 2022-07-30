@@ -36,9 +36,9 @@ tasks:
   task4:
     action: core.ask
     next:
-      - when: <% succeeded() %>
+      - when: <% task(task3).response.continue = true %>
         do: task5
-      - when: <% failed() %>
+      - when: <% task(task3).response.continue = false %>
         do: task6
   task5:
     action: core.echo message="Yes"

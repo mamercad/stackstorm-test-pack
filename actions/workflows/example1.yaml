@@ -45,7 +45,9 @@ tasks:
         properties:
           approved:
             type: boolean
-            description: "Continue?"
+            description: |
+              Keep going ??
+              {{ ctx() | to_yaml_string }}
             required: True
     next:
       - when: <% succeeded() %>

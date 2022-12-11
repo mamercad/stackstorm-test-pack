@@ -58,9 +58,14 @@ tasks:
       key: slack_thread_ts
       value: <% ctx("slack_thread_ts") %>
     next:
-      - do:
-          - delay=5
-          - task4
+      - do: pause
+
+  pause:
+    action: core.pause
+    input:
+      max_pause: 5
+    next:
+      - do: task4
 
   # slack_notify_pending:
   #   action: slack.chat.postMessage

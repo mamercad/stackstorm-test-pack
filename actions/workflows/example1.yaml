@@ -8,11 +8,11 @@ input:
   - slack_channel
   - slack_thread_ts
 
-vars:
-  - greeting: null
+# vars:
+#   - greeting: null
 
-output:
-  - greeting: <% ctx().greeting %>
+# output:
+#   - greeting: <% ctx().greeting %>
 
 tasks:
 
@@ -28,118 +28,136 @@ tasks:
           - slack_thread_ts: <% result().result.message.ts %>
         do: task1
 
-  task1:
-    action: core.echo message=<% ctx().name %>
-    next:
-      - when: <% succeeded() %>
-        publish: greeting=<% result().stdout %>
-        do: task2
-
-  task2:
-    action: core.echo
+  add_slack_thread_ts_to_kv:
+    action: st2.kv.set_object
     input:
-      message: "All your base are belong to us!"
-    next:
-      - when: <% succeeded() %>
-        publish:
-          - greeting: <% ctx("greeting") %>, <% result().stdout %>
-        do: task3
-
-  task3:
-    action: core.echo message=<% ctx('greeting') %>
-    next:
-      - when: <% succeeded() %>
-        publish: greeting=<% result().stdout %>
-        do: add_inquiry_to_kv
-
-  add_inquiry_to_kv:
-    action: st2.kv.set
-    input:
-      key: slack_thread_ts
-      value: <% ctx("slack_thread_ts") %>
+      key: "{{ ctx().st2.action_execution_id }}"
+      value:
+        slack_thread_ts: "{{ ctx().slack_thread_ts }}"
       ttl: 300
-    next:
-      - do: pause
-
-  pause:
-    action: core.pause
-    input:
-      max_pause: 5
-    next:
-      - do: task4
-
-  # slack_notify_pending:
-  #   action: slack.chat.postMessage
-  #   input:
-  #     channel: <% ctx("slack_channel") %>
-  #     text: |
-  #       pending <{{ ctx().st2_base_url }}/#/inquiry/{{ ctx().st2.action_execution_id }}|inquiry>
-  #     thread_ts: <% ctx("slack_thread_ts") %>
-  #   next:
-  #     - when: <% succeeded() %>
-  #       publish:
-  #         - slack_thread_ts: <% result().result.message.ts %>
-  #       do: task4
-
-  task4:
-    action: core.ask
-    input:
-      route: bots
-      schema:
-        type: object
-        properties:
-          approved:
-            type: boolean
-            description: |
-              Keep going ??
-              {{ ctx() | to_yaml_string }}
-            required: True
-      ttl: 5
-    next:
-      - when: <% succeeded() %>
-        do: task5
-      - when: <% failed() %>
-        do: task6
-
-  # slack_notify_inquiry:
-  #   action: slack.chat.postMessage
-  #   input:
-  #     channel: <% ctx("slack_channel") %>
-  #     text: |
-  #       :stackstom: <{{ ctx().st2_base_url }}/#/history/{{ ctx().st2.action_execution_id }}|example1> workflow started
-  #   next:
-  #     - when: <% succeeded() %>
-  #       publish:
-  #         - slack_thread_ts: <% result().result.message.ts %>
-  #       do: task1
-
-  task5:
-    action: core.echo
-    input:
-      message: |
-        Yes
-        {{ ctx() | to_yaml_string }}
-    next:
-      - do: slack_notify_finish
-        publish:
-          - workflow_result: success
-
-  task6:
-    action: core.echo
-    input:
-      message: |
-        No
-        {{ ctx() | to_yaml_string }}
-    next:
-      # - do: fail
-      - do: slack_notify_finish
-        publish:
-          - workflow_result: failed
+    # next:
+    #   - do: pause
 
   slack_notify_finish:
     action: slack.chat.postMessage
     input:
       channel: <% ctx("slack_channel") %>
       text: |
-        Workflow <{{ ctx().st2_base_url }}/#/history/{{ ctx().st2.action_execution_id }}|example1> finished {{ ctx().workflow_result }}
+        Workflow <{{ ctx().st2_base_url }}/#/history/{{ ctx().st2.action_execution_id }}|example1> finished
       thread_ts: <% ctx("slack_thread_ts") %>
+
+  # task1:
+  #   action: core.echo message=<% ctx().name %>
+  #   next:
+  #     - when: <% succeeded() %>
+  #       publish: greeting=<% result().stdout %>
+  #       do: task2
+
+  # task2:
+  #   action: core.echo
+  #   input:
+  #     message: "All your base are belong to us!"
+  #   next:
+  #     - when: <% succeeded() %>
+  #       publish:
+  #         - greeting: <% ctx("greeting") %>, <% result().stdout %>
+  #       do: task3
+
+  # task3:
+  #   action: core.echo message=<% ctx('greeting') %>
+  #   next:
+  #     - when: <% succeeded() %>
+  #       publish: greeting=<% result().stdout %>
+  #       do: add_inquiry_to_kv
+
+  # add_inquiry_to_kv:
+  #   action: st2.kv.set
+  #   input:
+  #     key: slack_thread_ts
+  #     value: <% ctx("slack_thread_ts") %>
+  #     ttl: 300
+  #   next:
+  #     - do: pause
+
+  # pause:
+  #   action: core.pause
+  #   input:
+  #     max_pause: 5
+  #   next:
+  #     - do: task4
+
+  # # slack_notify_pending:
+  # #   action: slack.chat.postMessage
+  # #   input:
+  # #     channel: <% ctx("slack_channel") %>
+  # #     text: |
+  # #       pending <{{ ctx().st2_base_url }}/#/inquiry/{{ ctx().st2.action_execution_id }}|inquiry>
+  # #     thread_ts: <% ctx("slack_thread_ts") %>
+  # #   next:
+  # #     - when: <% succeeded() %>
+  # #       publish:
+  # #         - slack_thread_ts: <% result().result.message.ts %>
+  # #       do: task4
+
+  # task4:
+  #   action: core.ask
+  #   input:
+  #     route: bots
+  #     schema:
+  #       type: object
+  #       properties:
+  #         approved:
+  #           type: boolean
+  #           description: |
+  #             Keep going ??
+  #             {{ ctx() | to_yaml_string }}
+  #           required: True
+  #     ttl: 5
+  #   next:
+  #     - when: <% succeeded() %>
+  #       do: task5
+  #     - when: <% failed() %>
+  #       do: task6
+
+  # # slack_notify_inquiry:
+  # #   action: slack.chat.postMessage
+  # #   input:
+  # #     channel: <% ctx("slack_channel") %>
+  # #     text: |
+  # #       :stackstom: <{{ ctx().st2_base_url }}/#/history/{{ ctx().st2.action_execution_id }}|example1> workflow started
+  # #   next:
+  # #     - when: <% succeeded() %>
+  # #       publish:
+  # #         - slack_thread_ts: <% result().result.message.ts %>
+  # #       do: task1
+
+  # task5:
+  #   action: core.echo
+  #   input:
+  #     message: |
+  #       Yes
+  #       {{ ctx() | to_yaml_string }}
+  #   next:
+  #     - do: slack_notify_finish
+  #       publish:
+  #         - workflow_result: success
+
+  # task6:
+  #   action: core.echo
+  #   input:
+  #     message: |
+  #       No
+  #       {{ ctx() | to_yaml_string }}
+  #   next:
+  #     # - do: fail
+  #     - do: slack_notify_finish
+  #       publish:
+  #         - workflow_result: failed
+
+  # slack_notify_finish:
+  #   action: slack.chat.postMessage
+  #   input:
+  #     channel: <% ctx("slack_channel") %>
+  #     text: |
+  #       Workflow <{{ ctx().st2_base_url }}/#/history/{{ ctx().st2.action_execution_id }}|example1> finished {{ ctx().workflow_result }}
+  #     thread_ts: <% ctx("slack_thread_ts") %>

@@ -33,17 +33,51 @@ tasks:
     input:
       key: "{{ ctx().st2.action_execution_id }}"
       value:
-        "slack_thread_ts": "{{ ctx().slack_thread_ts }}"
+        slack_thread_ts: "{{ ctx().slack_thread_ts }}"
       ttl: 300
     next:
-      - do: slack_notify_finish
+      - do: slack_notify_pending_inquiry
+
+  slack_notify_pending_inquiry:
+    action: slack.chat.postMessage
+    input:
+      channel: <% ctx("slack_channel") %>
+      text: |
+        Pending <{{ ctx().st2_base_url }}/#/inquiry/{{ ctx().st2.action_execution_id }}|inquiry>
+      thread_ts: <% ctx("slack_thread_ts") %>
+    next:
+      - do: get_approval
+
+  get_approval:
+    action: core.ask
+    input:
+      route: bots
+      schema:
+        type: object
+        properties:
+          approved:
+            type: boolean
+            description: |
+              Keep going ??
+              {{ ctx() | to_yaml_string }}
+            required: True
+      ttl: 5
+    next:
+      - when: <% succeeded() %>
+        do: slack_notify_finish
+        publish:
+          workflow_result: success
+      - when: <% failed() %>
+        do: slack_notify_finish
+        publish:
+          workflow_result: success
 
   slack_notify_finish:
     action: slack.chat.postMessage
     input:
       channel: <% ctx("slack_channel") %>
       text: |
-        Workflow <{{ ctx().st2_base_url }}/#/history/{{ ctx().st2.action_execution_id }}|example1> finished
+        Workflow <{{ ctx().st2_base_url }}/#/history/{{ ctx().st2.action_execution_id }}|example1> finished ({{ cts().workflow_result }})
       thread_ts: <% ctx("slack_thread_ts") %>
 
   # task1:

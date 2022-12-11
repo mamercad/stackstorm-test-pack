@@ -57,6 +57,8 @@ tasks:
     input:
       key: slack_thread_ts
       value: <% ctx("slack_thread_ts") %>
+    next:
+      - do: task4
 
   # slack_notify_pending:
   #   action: slack.chat.postMessage

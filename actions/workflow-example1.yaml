@@ -10,3 +10,11 @@ parameters:
     required: true
     type: string
     default: Jane
+  st2_base_url:
+    required: true
+    type: string
+    default: "{{ st2kv.system.st2_base_url }}"
+  slack_channel:
+    required: true
+    type: string
+    default: "{{ st2kv.system.slack_channel }}"

@@ -4,11 +4,11 @@ description: A basic sequential workflow.
 
 input:
   - name
+  - st2_base_url
+  - slack_channel
 
 vars:
-  - st2_base_url: https://stackstorm.analogpuddle.cloud
   - greeting: null
-  - slack_channel: "#bots"
 
 output:
   - greeting: <% ctx().greeting %>
@@ -42,14 +42,27 @@ tasks:
       - when: <% succeeded() %>
         publish:
           - greeting: <% ctx("greeting") %>, <% result().stdout %>
-        do:
-          - task3
+        do: task3
 
   task3:
     action: core.echo message=<% ctx('greeting') %>
     next:
       - when: <% succeeded() %>
         publish: greeting=<% result().stdout %>
+        do: slack_notify_pending
+
+  slack_notify_pending:
+    action: slack.chat.postMessage
+    input:
+      channel: <% ctx("slack_channel") %>
+      text: |
+        pending inquiry at <{{ ctx().st2_base_url }}/#/history/{{ ctx().st2.action_execution_id }}|example1>
+      thread_ts: <% ctx("slack_thread_ts") %>
+    next:
+      - when: <% succeeded() %>
+        publish:
+          - slack_thread_ts: <% result().result.message.ts %>
+        do: task4
 
   task4:
     action: core.ask

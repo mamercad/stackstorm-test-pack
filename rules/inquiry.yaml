@@ -14,9 +14,6 @@ action:
       Trigger:
       {{ trigger | to_yaml_string }}
 
-      Context:
-      {{ ctx() | to_yaml_string }}
-
 # action:
 #   ref: slack.post_message
 #   parameters:

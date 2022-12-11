@@ -8,7 +8,15 @@ trigger:
   type: core.st2.generic.inquiry
 
 action:
-  ref: slack.post_message
+  ref: core.echo
   parameters:
-    channel: "#{{ trigger.route }}"
-    message: StackStorm Inquiry {{trigger.id}} is awaiting an approval action
+    message: |
+      Trigger:
+      {{ trigger | to_yaml_string }}
+
+# action:
+#   ref: slack.post_message
+#   parameters:
+#     channel: "#{{ trigger.route }}"
+#     message: StackStorm Inquiry {{ trigger.id }} is awaiting an approval action
+#     # thread_ts: "{{ asdf }}"

@@ -7,11 +7,24 @@ input:
 
 vars:
   - greeting: null
+  - slack_channel: "#bots"
 
 output:
   - greeting: <% ctx().greeting %>
 
 tasks:
+
+  slack_notify_start:
+    action: slack.chat.postMessage
+    input:
+      channel: <% ctx("slack_channel") %>
+      text: |
+        :stackstom: <{{ ctx().st2_base_url }}/#/history/{{ ctx().st2.action_execution_id }}|example1> workflow started
+    next:
+      - when: <% succeeded() %>
+        publish:
+          - slack_thread_ts: <% result().result.message.ts %>
+        do: task1
 
   task1:
     action: core.echo message=<% ctx().name %>
@@ -55,6 +68,18 @@ tasks:
         do: task5
       - when: <% failed() %>
         do: task6
+
+  # slack_notify_inquiry:
+  #   action: slack.chat.postMessage
+  #   input:
+  #     channel: <% ctx("slack_channel") %>
+  #     text: |
+  #       :stackstom: <{{ ctx().st2_base_url }}/#/history/{{ ctx().st2.action_execution_id }}|example1> workflow started
+  #   next:
+  #     - when: <% succeeded() %>
+  #       publish:
+  #         - slack_thread_ts: <% result().result.message.ts %>
+  #       do: task1
 
   task5:
     action: core.echo

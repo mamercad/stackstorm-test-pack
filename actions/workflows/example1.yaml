@@ -119,10 +119,10 @@ tasks:
       message: |
         Yes
         {{ ctx() | to_yaml_string }}
-      publish:
-        - workflow_result: success
     next:
       - do: slack_notify_finish
+        publish:
+          - workflow_result: success
 
   task6:
     action: core.echo
@@ -130,11 +130,11 @@ tasks:
       message: |
         No
         {{ ctx() | to_yaml_string }}
-      publish:
-        - workflow_result: failed
     next:
       # - do: fail
       - do: slack_notify_finish
+        publish:
+          - workflow_result: failed
 
   slack_notify_finish:
     action: slack.chat.postMessage

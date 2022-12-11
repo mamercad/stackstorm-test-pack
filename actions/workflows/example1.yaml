@@ -66,11 +66,11 @@ tasks:
       - when: <% succeeded() %>
         do: slack_notify_finish
         publish:
-          workflow_result: success
+          - workflow_result: success
       - when: <% failed() %>
         do: slack_notify_finish
         publish:
-          workflow_result: success
+          - workflow_result: success
 
   slack_notify_finish:
     action: slack.chat.postMessage

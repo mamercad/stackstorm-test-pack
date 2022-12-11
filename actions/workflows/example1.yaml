@@ -56,9 +56,17 @@ tasks:
         do: task6
 
   task5:
-    action: core.echo message="Yes"
+    action: core.echo
+    input:
+      message: |
+        Yes
+        {{ ctx() | to_yaml_string }}
 
   task6:
-    action: core.echo message="No"
+    action: core.echo
+    input:
+      message: |
+        No
+        {{ ctx() | to_yaml_string }}
     next:
       - do: fail

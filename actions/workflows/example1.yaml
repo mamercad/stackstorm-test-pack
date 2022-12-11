@@ -142,3 +142,4 @@ tasks:
       channel: <% ctx("slack_channel") %>
       text: |
         Workflow <{{ ctx().st2_base_url }}/#/history/{{ ctx().st2.action_execution_id }}|example1> finished {{ ctx().workflow_result }}
+      thread_ts: <% ctx("slack_thread_ts") %>

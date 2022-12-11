@@ -6,6 +6,7 @@ input:
   - name
 
 vars:
+  - st2_base_url: https://stackstorm.analogpuddle.cloud
   - greeting: null
   - slack_channel: "#bots"
 

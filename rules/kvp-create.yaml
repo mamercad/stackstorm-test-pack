@@ -1,0 +1,14 @@
+---
+name: kvp-create
+pack: test
+description: KV pair create rule
+enabled: true
+
+trigger:
+  type: core.st2.key_value_pair.create
+
+action:
+  ref: core.echo
+  parameters:
+    message: |
+      {{ trigger | to_yaml_string }}

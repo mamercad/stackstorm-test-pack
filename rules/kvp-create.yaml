@@ -7,6 +7,11 @@ enabled: true
 trigger:
   type: core.st2.key_value_pair.create
 
+criteria:
+  trigger.object.name:
+    type: equals
+    pattern: foo
+
 action:
   ref: core.echo
   parameters:

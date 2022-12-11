@@ -26,17 +26,18 @@ tasks:
       - when: <% succeeded() %>
         publish:
           - slack_thread_ts: <% result().result.message.ts %>
-        do: add_slack_thread_ts_to_kv
+        # do: add_slack_thread_ts_to_kv
+        do: slack_notify_finish
 
-  add_slack_thread_ts_to_kv:
-    action: st2.kv.set_object
-    input:
-      key: "{{ ctx().st2.action_execution_id }}"
-      value:
-        - slack_thread_ts: "{{ ctx().slack_thread_ts }}"
-      ttl: 300
-    next:
-      do: slack_notify_finish
+  # add_slack_thread_ts_to_kv:
+  #   action: st2.kv.set_object
+  #   input:
+  #     key: "{{ ctx().st2.action_execution_id }}"
+  #     value:
+  #       - slack_thread_ts: "{{ ctx().slack_thread_ts }}"
+  #     ttl: 300
+  #   next:
+  #     do: slack_notify_finish
 
   slack_notify_finish:
     action: slack.chat.postMessage

@@ -21,7 +21,7 @@ tasks:
     input:
       channel: <% ctx("slack_channel") %>
       text: |
-        <{{ ctx().st2_base_url }}/#/history/{{ ctx().st2.action_execution_id }}|example1> workflow started
+        Workflow <{{ ctx().st2_base_url }}/#/history/{{ ctx().st2.action_execution_id }}|example1> started
     next:
       - when: <% succeeded() %>
         publish:
@@ -57,6 +57,7 @@ tasks:
     input:
       key: slack_thread_ts
       value: <% ctx("slack_thread_ts") %>
+      ttl: 300
     next:
       - do: pause
 
@@ -93,6 +94,7 @@ tasks:
               Keep going ??
               {{ ctx() | to_yaml_string }}
             required: True
+      ttl: 5
     next:
       - when: <% succeeded() %>
         do: task5
@@ -117,6 +119,10 @@ tasks:
       message: |
         Yes
         {{ ctx() | to_yaml_string }}
+      publish:
+        - workflow_result: success
+    next:
+      - do: slack_notify_finish
 
   task6:
     action: core.echo
@@ -124,5 +130,15 @@ tasks:
       message: |
         No
         {{ ctx() | to_yaml_string }}
+      publish:
+        - workflow_result: failed
     next:
-      - do: fail
+      # - do: fail
+      - do: slack_notify_finish
+
+  slack_notify_finish:
+    action: slack.chat.postMessage
+    input:
+      channel: <% ctx("slack_channel") %>
+      text: |
+        Workflow <{{ ctx().st2_base_url }}/#/history/{{ ctx().st2.action_execution_id }}|example1> finished {{ ctx().workflow_result }}

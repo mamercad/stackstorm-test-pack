@@ -19,5 +19,5 @@ action:
   parameters:
     channel: "#{{ trigger.route }}"
     text: |
-      StackStorm Inquiry {{ trigger.id }} is awaiting an approval action
+      Inquiry `{{ trigger.id }}` waiting ...
     thread_ts: "{{ st2kv.system.slack_thread_ts }}"

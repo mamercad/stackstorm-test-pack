@@ -32,7 +32,8 @@ tasks:
     action: st2.kv.set_object
     input:
       key: "{{ ctx().st2.action_execution_id }}"
-      value: '{ "slack_thread_ts": ctx().slack_thread_ts }'
+      value:
+        - '{ "slack_thread_ts": ctx().slack_thread_ts }'
       ttl: 300
     next:
       do: slack_notify_finish

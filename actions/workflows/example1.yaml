@@ -50,7 +50,7 @@ tasks:
     next:
       - when: <% succeeded() %>
         publish: greeting=<% result().stdout %>
-        do: slack_notify_pending
+        do: add_inquiry_to_kv
 
   add_inquiry_to_kv:
     action: st2.kv.set

@@ -51,18 +51,24 @@ tasks:
         publish: greeting=<% result().stdout %>
         do: slack_notify_pending
 
-  slack_notify_pending:
-    action: slack.chat.postMessage
+  add_inquiry_to_kv:
+    action: st2.kv.set
     input:
-      channel: <% ctx("slack_channel") %>
-      text: |
-        pending <{{ ctx().st2_base_url }}/#/inquiry/{{ ctx().st2.action_execution_id }}|inquiry>
-      thread_ts: <% ctx("slack_thread_ts") %>
-    next:
-      - when: <% succeeded() %>
-        publish:
-          - slack_thread_ts: <% result().result.message.ts %>
-        do: task4
+      key: slack_thread_ts
+      value: <% ctx("slack_thread_ts") %>
+
+  # slack_notify_pending:
+  #   action: slack.chat.postMessage
+  #   input:
+  #     channel: <% ctx("slack_channel") %>
+  #     text: |
+  #       pending <{{ ctx().st2_base_url }}/#/inquiry/{{ ctx().st2.action_execution_id }}|inquiry>
+  #     thread_ts: <% ctx("slack_thread_ts") %>
+  #   next:
+  #     - when: <% succeeded() %>
+  #       publish:
+  #         - slack_thread_ts: <% result().result.message.ts %>
+  #       do: task4
 
   task4:
     action: core.ask

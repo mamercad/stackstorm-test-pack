@@ -6,6 +6,7 @@ input:
   - name
   - st2_base_url
   - slack_channel
+  - slack_thread_ts
 
 vars:
   - greeting: null

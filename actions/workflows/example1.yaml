@@ -39,9 +39,8 @@ tasks:
 
   task4:
     action: core.ask
-    params:
-      route: bots
     input:
+      route: bots
       schema:
         type: object
         properties:

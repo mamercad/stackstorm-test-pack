@@ -20,7 +20,7 @@ tasks:
     input:
       channel: <% ctx("slack_channel") %>
       text: |
-        :stackstom: <{{ ctx().st2_base_url }}/#/history/{{ ctx().st2.action_execution_id }}|example1> workflow started
+        <{{ ctx().st2_base_url }}/#/history/{{ ctx().st2.action_execution_id }}|example1> workflow started
     next:
       - when: <% succeeded() %>
         publish:

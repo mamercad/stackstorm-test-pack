@@ -26,7 +26,7 @@ tasks:
       - when: <% succeeded() %>
         publish:
           - slack_thread_ts: <% result().result.message.ts %>
-        do: task1
+        do: add_slack_thread_ts_to_kv
 
   add_slack_thread_ts_to_kv:
     action: st2.kv.set_object
@@ -35,8 +35,8 @@ tasks:
       value:
         slack_thread_ts: "{{ ctx().slack_thread_ts }}"
       ttl: 300
-    # next:
-    #   - do: pause
+    next:
+      do: slack_notify_finish
 
   slack_notify_finish:
     action: slack.chat.postMessage

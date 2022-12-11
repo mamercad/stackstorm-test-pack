@@ -12,4 +12,4 @@ action:
   parameters:
     message: |
       {{ trigger | to_yaml_string }}
-      {{ trigger.name }}
+      {{ trigger.object.name }}

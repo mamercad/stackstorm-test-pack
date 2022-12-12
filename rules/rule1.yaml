@@ -2,7 +2,7 @@
 name: rule1
 pack: test
 description: Rule on test.event1
-enabled: true
+enabled: false
 
 trigger:
     type: test.event1

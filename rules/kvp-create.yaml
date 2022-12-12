@@ -2,7 +2,7 @@
 name: kvp-create
 pack: test
 description: KV pair create rule
-enabled: true
+enabled: false
 
 trigger:
   type: core.st2.key_value_pair.create

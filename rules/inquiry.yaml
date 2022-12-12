@@ -2,7 +2,7 @@
 name: inquiry
 pack: test
 description: Notify relevant users of an Inquiry action
-enabled: true
+enabled: false
 
 trigger:
   type: core.st2.generic.inquiry

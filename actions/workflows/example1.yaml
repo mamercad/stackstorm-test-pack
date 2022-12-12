@@ -38,7 +38,7 @@ tasks:
     next:
       - do: slack_notify_pending_inquiry
         publish:
-          - inquiry_execution_id: "{{ ctx().action_execution_id }}"
+          - inquiry_execution_id: "{{ ctx().st2.action_execution_id }}"
 
   slack_notify_pending_inquiry:
     action: slack.chat.postMessage

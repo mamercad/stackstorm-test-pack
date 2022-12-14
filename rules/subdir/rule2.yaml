@@ -1,0 +1,28 @@
+---
+name: rule2
+pack: test
+description: Rule on test.event2
+enabled: false
+
+trigger:
+    type: test.event1
+
+criteria:
+    trigger.x:
+        type: exists
+        # pattern: a
+        pattern: z
+
+# criteria:
+#     trigger.things:
+#         type: search
+#         condition: any
+#         pattern:
+#             item.number:
+#                 type: equals
+#                 pattern: 2
+
+action:
+    ref: test.greet
+    parameters:
+        greeting: Yo

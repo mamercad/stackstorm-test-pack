@@ -9,7 +9,7 @@ class PythonAction(Action):
     def run(self, *args, **kwargs):
         print("Python works!")
         statsd = StatsDClient()
-        statsd.incr(counter="foo")
+        statsd.incr(counter="foo1")
         time.sleep(2)
-        statsd.timing(stat="foo")
+        statsd.timing(stat="foo2")
         return True, {"foo": "bar"}

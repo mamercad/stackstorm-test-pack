@@ -2,7 +2,7 @@
 name: rule1
 pack: test
 description: Rule on test.event1
-enabled: "{{ st2kv.system.rule1.enabled | default(false) }}"
+enabled: false
 
 trigger:
     type: test.event1

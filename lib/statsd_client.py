@@ -10,8 +10,8 @@ class StatsDClient:
     def incr(self, counter="foo"):
         self.client.incr(counter)
 
-    def gauge(self, gauge="foo", delta=True):
-        self.client.gauge(gauge=gauge, delta=delta)
+    def gauge(self, stat="foo", value=0, delta=True):
+        self.client.gauge(stat=stat, value=value)
 
     def timing(self, stat="foo"):
         # You must convert to milliseconds:

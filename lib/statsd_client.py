@@ -11,7 +11,7 @@ class StatsDClient:
         self.client.incr(counter)
 
     def gauge(self, stat="foo", value=1, delta=True):
-        self.client.gauge(stat=stat, value=value)
+        self.client.gauge(stat=stat, value=value, delta=delta)
 
     def timing(self, stat="foo"):
         # You must convert to milliseconds:

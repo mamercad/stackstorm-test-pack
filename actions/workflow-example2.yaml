@@ -3,18 +3,6 @@ name: example2
 pack: test
 description: A basic sequential workflow.
 runner_type: orquesta
-entry_point: workflows/example1.yaml
+entry_point: workflows/example2.yaml
 enabled: true
-parameters:
-  name:
-    required: true
-    type: string
-    default: Jane
-  st2_base_url:
-    required: true
-    type: string
-    default: "{{ st2kv.system.st2_base_url }}"
-  slack_channel:
-    required: true
-    type: string
-    default: "{{ st2kv.system.slack_channel }}"
+parameters: {}

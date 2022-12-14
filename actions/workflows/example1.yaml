@@ -15,6 +15,14 @@ input:
 #   - greeting: <% ctx().greeting %>
 
 tasks:
+
+  statsd_counter_start:
+    action: test.statsd_counter
+    input:
+      name: stackstorm.workflow.example1.initiated
+    next:
+      - do: slack_notify_start
+
   slack_notify_start:
     action: slack.chat.postMessage
     input:

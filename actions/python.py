@@ -11,5 +11,5 @@ class PythonAction(Action):
         statsd = StatsDClient()
         statsd.incr(counter="foo")
         time.sleep(2)
-        statsd.timing(timer="foo")
+        statsd.timing(stat="foo")
         return True, {"foo": "bar"}

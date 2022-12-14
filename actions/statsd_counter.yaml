@@ -1,0 +1,12 @@
+---
+name: statsd_counter
+pack: test
+runner_type: python-script
+description: Increments a StatsD counter
+enabled: true
+entry_point: statsd_counter.py
+parameters:
+  name:
+    description: Name of the counter
+    type: string
+    required: true

@@ -16,4 +16,4 @@ class StatsDClient:
     def timing(self, timer="foo"):
         # You must convert to milliseconds:
         dt = int((time.time() - self.start) * 1000)
-        self.client.statsd.timing(timer=timer, dt=dt)
+        self.client.timing(timer=timer, dt=dt)

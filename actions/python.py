@@ -13,4 +13,3 @@ class PythonAction(Action):
         time.sleep(2)
         statsd.timing(timer="foo")
         return True, {"foo": "bar"}
-k

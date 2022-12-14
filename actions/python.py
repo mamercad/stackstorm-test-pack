@@ -8,5 +8,5 @@ class PythonAction(Action):
     def run(self, *args, **kwargs):
         print("Python works!")
         statsd = StatsDClient()
-        statsd.emit()
+        statsd.incr(counter="foo")
         return True, {"foo": "bar"}

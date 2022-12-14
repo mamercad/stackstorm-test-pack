@@ -1,8 +1,8 @@
 import statsd
 
 class StatsDClient:
-    def __init__(self):
-        self.client = statsd.StatsClient('localhost', 9125)
+    def __init__(self, host="localhost", port=9125):
+        self.client = statsd.StatsClient(host=host, port=port)
 
-    def emit(self):
-        self.client.incr('foo')
+    def incr(self, counter="foo"):
+        self.client.incr(counter)

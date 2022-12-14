@@ -1,0 +1,13 @@
+---
+name: sleep
+pack: test
+runner_type: local-shell-script
+description: An action that sleeps
+enabled: true
+entry_point: sleep.sh
+parameters:
+  seconds:
+    description: Number of seconds to sleep for
+    type: integer
+    required: true
+    default: 10

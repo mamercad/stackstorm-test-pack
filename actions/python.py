@@ -12,5 +12,5 @@ class PythonAction(Action):
         statsd.incr(counter="foo1")
         time.sleep(2)
         statsd.timing(stat="foo2")
-        statsd.gauge(gauge="foo3")
+        statsd.gauge(stat="foo3")
         return True, {"foo": "bar"}

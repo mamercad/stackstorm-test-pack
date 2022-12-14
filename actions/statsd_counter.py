@@ -7,7 +7,7 @@ from statsd_client import StatsDClient
 
 class StatsDCounterAction(Action):
     def run(self, *args, **kwargs):
-        name = args.get("name")
+        name = kwargs.get("name")
 
         statsd = StatsDClient()
         statsd.incr(counter=name)

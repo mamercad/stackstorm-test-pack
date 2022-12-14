@@ -90,6 +90,13 @@ tasks:
       text: |
         Workflow <{{ ctx().st2_base_url }}/#/history/{{ ctx().workflow_execution_id }}|example1> finished ({{ ctx().workflow_result }})
       thread_ts: <% ctx("slack_thread_ts") %>
+    next:
+      - do: statsd_counter_passed
+
+  statsd_counter_passed:
+    action: test.statsd_counter
+    input:
+      name: stackstorm.workflow.example1.passed
 
   # task1:
   #   action: core.echo message=<% ctx().name %>

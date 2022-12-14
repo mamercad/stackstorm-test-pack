@@ -1,0 +1,22 @@
+version: 1.0
+
+description: A basic sequential workflow.
+
+tasks:
+
+  statsd_counter_start:
+    action: test.statsd_counter
+    input:
+      name: stackstorm.workflow.example2.initiated
+    next:
+      - do: sleep
+
+  sleep:
+    action: test.sleep
+    next:
+      - do: statsd_counter_passed
+
+  statsd_counter_passed:
+    action: test.statsd_counter
+    input:
+      name: stackstorm.workflow.example2.passed

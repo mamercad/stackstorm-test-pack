@@ -10,7 +10,7 @@ class StatsDClient:
     def incr(self, counter="foo"):
         self.client.incr(counter)
 
-    def gauge(self, stat="foo", value=0, delta=True):
+    def gauge(self, stat="foo", value=1, delta=True):
         self.client.gauge(stat=stat, value=value)
 
     def timing(self, stat="foo"):

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 from st2common.runners.base_action import Action
-from lib.statsd import StatsDClient
+from statsd import StatsDClient
 
 
 class PythonAction(Action):

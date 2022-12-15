@@ -19,6 +19,6 @@ class StatsDCounterAction(Action):
 
         key_pair = client.keys.get_by_name(name=name)
         epoch_start = key_pair.value
-        duration_seconds = epoch_now - int(epoch_start)
+        duration_seconds = int(epoch_now - int(epoch_start))
         client.keys.delete(key_pair)
         return True, {"duration_seconds": duration_seconds}

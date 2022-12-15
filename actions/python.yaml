@@ -6,4 +6,7 @@ description: simple python script
 enabled: true
 entry_point: python.py
 parameters: {}
-output_schema: {}
+output_schema:
+  version:
+    type: string
+    required: true

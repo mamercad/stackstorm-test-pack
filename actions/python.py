@@ -7,6 +7,8 @@ from statsd_client import StatsDClient
 
 class PythonAction(Action):
     def run(self, *args, **kwargs):
+        self.logger.info("Logger info")
+        self.logger.error("Logger error")
         print("Python works!")
         statsd = StatsDClient()
         statsd.incr(counter="foo1")

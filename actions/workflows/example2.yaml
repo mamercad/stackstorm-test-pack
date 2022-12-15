@@ -8,8 +8,8 @@ tasks:
     action: core.echo
     input:
       message: |
-        {{ ctx().user }}
-        {{ ctx().pack }}
+        {{ ctx().st2.user }}
+        {{ ctx().st2.pack }}
         {{ ctx().st2.action_execution_id }}
         {{ task("start") | pprint }}
     next:

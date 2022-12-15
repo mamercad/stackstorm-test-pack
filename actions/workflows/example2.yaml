@@ -14,7 +14,7 @@ tasks:
   kv_store_start:
     action: test.kv_timing
     input:
-      name: foo
+      name: <% ctx().st2.action_execution_id %>
       start: true
     next:
       - do: statsd_counter_start
@@ -41,12 +41,15 @@ tasks:
   kv_get_duration:
     action: test.kv_timing
     input:
-      name: foo
+      name: <% ctx().st2.action_execution_id %>
       start: false
     next:
-      - do: finish
+      - do: statsd_timing
+        publish:
+          - duration_seconds: <% result().duration_seconds %>
 
-  finish:
-    action: core.echo
+  statsd_timing:
+    action: test.statsd_timing
     input:
-      message: <% ctx().st2.action_execution_id %>
+      name: stackstorm.workflow.example2.timing
+      delta: <% ctx().duration_seconds %>

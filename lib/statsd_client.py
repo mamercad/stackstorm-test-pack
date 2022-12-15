@@ -13,7 +13,10 @@ class StatsDClient:
     def gauge(self, stat="foo", value=1, delta=True):
         self.client.gauge(stat=stat, value=value, delta=delta)
 
-    def timing(self, stat="foo"):
+    def timing(self, stat="foo", delta=None):
         # You must convert to milliseconds:
-        dt = int((time.time() - self.start) * 1000)
-        self.client.timing(stat=stat, delta=dt)
+        if not delta:
+            delta = int((time.time() - self.start) * 1000)
+        else:
+            delta = delta * 1000
+        self.client.timing(stat=stat, delta=delta)

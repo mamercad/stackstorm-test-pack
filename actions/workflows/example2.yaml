@@ -4,20 +4,20 @@ description: A basic sequential workflow.
 
 tasks:
 
+  kv_store_start:
+    action: test.kv_timing
+    input:
+      name: foo
+      start: true
+    next:
+      - do: statsd_counter_start
+
   statsd_counter_start:
     action: test.statsd_counter
     input:
       name: stackstorm.workflow.example2.initiated
     next:
       - do: sleep
-
-  kv_store_start:
-    action: st2.kv.set_object
-    input:
-      key: "{{ ctx().workflow_execution_id }}"
-      value:
-        start: "{{ ctx().slack_thread_ts }}"
-      ttl: 300
 
   sleep:
     action: test.sleep
@@ -28,3 +28,11 @@ tasks:
     action: test.statsd_counter
     input:
       name: stackstorm.workflow.example2.passed
+    next:
+      - do: kv_get_duration
+
+  kv_get_duration:
+    action: test.kv_timing
+    input:
+      name: foo
+      start: false

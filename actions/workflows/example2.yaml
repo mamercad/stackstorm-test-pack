@@ -11,7 +11,6 @@ tasks:
         {{ ctx().st2.user }}
         {{ ctx().st2.pack }}
         {{ ctx().st2.action_execution_id }}
-        {{ task("start") | pprint }}
     next:
       - do: kv_store_start
 

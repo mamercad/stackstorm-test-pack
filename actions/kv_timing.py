@@ -11,10 +11,10 @@ class StatsDCounterAction(Action):
 
         name = kwargs.get("name")
         start = kwargs.get("start")
-        epoch_now = time.time()
+        epoch_now = int(time.time())
 
         if start:
-            client.keys.update(KeyValuePair(name=name, value=str(int(epoch_now))))
+            client.keys.update(KeyValuePair(name=name, value=str(epoch_now)))
             return True, {"epoch_now": epoch_now}
 
         key_pair = client.keys.get_by_name(name=name)

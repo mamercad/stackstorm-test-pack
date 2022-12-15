@@ -5,4 +5,13 @@ runner_type: python-script
 description: Increments a timing thing
 enabled: true
 entry_point: kv_timing.py
-parameters: {}
+parameters:
+  name:
+    description: Name of the key
+    type: string
+    required: true
+  start:
+    description: Start (or calculate)
+    type: boolean
+    required: true
+    default: true

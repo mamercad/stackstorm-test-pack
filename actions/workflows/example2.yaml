@@ -46,10 +46,10 @@ tasks:
     next:
       - do: statsd_timing
         publish:
-          - duration_seconds: <% result().duration_seconds %>
+          - duration_seconds: <% result().result.duration_seconds %>
 
   statsd_timing:
     action: test.statsd_timing
     input:
       name: stackstorm.workflow.example2.timing
-      delta: <% task(kv_get_duration).result.duration_seconds %>
+      delta: <% ctx().duration_seconds %>

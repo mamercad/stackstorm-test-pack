@@ -8,8 +8,10 @@ tasks:
     action: core.echo
     input:
       message: |
+        {{ ctx().user }}
+        {{ ctx().pack }}
         {{ ctx().st2.action_execution_id }}
-        {{ task() | pprint }}
+        {{ task("start") | pprint }}
     next:
       - do: kv_store_start
 

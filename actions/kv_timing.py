@@ -18,6 +18,6 @@ class StatsDCounterAction(Action):
             return True, {"epoch_now": epoch_now}
 
         epoch_start = client.keys.get_by_name(name=name).value
-        duration_seconds = epoch_now - epoch_start
+        duration_seconds = epoch_now - int(epoch_start)
         client.keys.delete(epoch_start)
         return True, {"duration_seconds": duration_seconds}

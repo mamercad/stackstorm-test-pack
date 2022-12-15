@@ -14,7 +14,7 @@ class StatsDCounterAction(Action):
         epoch_now = time.time()
 
         if start:
-            client.keys.update(KeyValuePair(name=name, value=epoch_now))
+            client.keys.update(KeyValuePair(name=name, value=str(int(epoch_now))))
             return True, {"epoch_now": epoch_now}
 
         epoch_start = client.keys.get_by_name(name=name).value

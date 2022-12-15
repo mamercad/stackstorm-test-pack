@@ -6,3 +6,4 @@ description: simple python script
 enabled: true
 entry_point: python.py
 parameters: {}
+output_schema: {}

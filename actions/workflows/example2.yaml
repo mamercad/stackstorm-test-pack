@@ -9,11 +9,7 @@ tasks:
     input:
       message: |
         <% ctx().st2.action_execution_id %>
-        <% task().task_execution_id %>
-        <% task().workflow_execution_id %>
-        <% task().task_name %>
-        <% task().task_id %>
-        <% task().start_timestamp %>
+        <% task() | pprint %>
     next:
       - do: kv_store_start
 

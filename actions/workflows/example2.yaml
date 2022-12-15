@@ -11,6 +11,14 @@ tasks:
     next:
       - do: sleep
 
+  kv_store_start:
+    action: st2.kv.set_object
+    input:
+      key: "{{ ctx().workflow_execution_id }}"
+      value:
+        start: "{{ ctx().slack_thread_ts }}"
+      ttl: 300
+
   sleep:
     action: test.sleep
     next:

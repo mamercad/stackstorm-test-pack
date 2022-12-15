@@ -9,7 +9,7 @@ tasks:
     input:
       message: |
         <% ctx().st2.action_execution_id %>
-        <% task() | pprint %>
+        {{ task() | pprint }}
     next:
       - do: kv_store_start
 

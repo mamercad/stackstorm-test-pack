@@ -43,3 +43,10 @@ tasks:
     input:
       name: foo
       start: false
+    next:
+      - do: finish
+
+  finish:
+    action: core.echo
+    input:
+      message: <% ctx().st2.action_execution_id %>

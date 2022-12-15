@@ -1,0 +1,16 @@
+---
+name: statsd_timing
+pack: test
+runner_type: python-script
+description: Sends a StatsD timing
+enabled: true
+entry_point: statsd_timing.py
+parameters:
+  name:
+    description: Name of the timing
+    type: string
+    required: true
+  delta:
+    description: Delta seconds
+    type: integer
+    required: true

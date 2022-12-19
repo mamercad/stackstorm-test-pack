@@ -26,7 +26,7 @@ jobs:
 
       - name: Ensure CHANGELOG.md changed
         # https://github.com/marketplace/actions/changelog-checker
-        uses: Zomzog/changelog-checker@v1.2.0
+        uses: Zomzog/changelog-checker@v1.3.0
         with:
           fileName: CHANGELOG.md
           checkNotification: Simple
@@ -35,7 +35,7 @@ jobs:
 
       - name: Ensure pack.yaml changed
         # https://github.com/marketplace/actions/changelog-checker
-        uses: Zomzog/changelog-checker@v1.2.0
+        uses: Zomzog/changelog-checker@v1.3.0
         with:
           fileName: pack.yaml
           checkNotification: Simple
@@ -47,7 +47,7 @@ jobs:
           pip3 install yq semver
           THIS="$(yq -r .version <pack.yaml)"
           git fetch --all
-          echo "::notice::jGITHUB_BASE_REF=${GITHUB_BASE_REF}"
+          echo "::notice::GITHUB_BASE_REF=${GITHUB_BASE_REF}"
           THAT="$(git show origin/${GITHUB_BASE_REF}:pack.yaml | yq -r .version)"
           echo "::notice::THIS=$THIS"
           echo "::notice::THAT=$THAT"

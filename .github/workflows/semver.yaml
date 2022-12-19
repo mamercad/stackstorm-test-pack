@@ -1,4 +1,4 @@
-name: semver
+name: Versioning Checks
 
 on:
   pull_request:
@@ -18,9 +18,6 @@ jobs:
           python-version: "3.8"
           cache: pip
 
-      - run: |
-          pip3 install yq
-
       - name: Changelog check
         # https://github.com/marketplace/actions/changelog-checker
         uses: Zomzog/changelog-checker@v1.2.0
@@ -38,3 +35,7 @@ jobs:
           checkNotification: Simple
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - run: |
+          pip3 install yq semver
+          yq -r .version <pack.yaml

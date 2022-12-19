@@ -1,0 +1,30 @@
+name: semver
+
+on:
+  push:
+    branches:
+      - semver
+
+jobs:
+  semver:
+    runs-on: ubuntu-20.04
+    steps:
+
+      - uses: actions/checkout@v3
+
+      - uses: actions/setup-python@v4
+        with:
+          python-version: "3.8"
+          cache: pip
+
+      - run: |
+          pip3 install yq
+
+      - name: Pack check
+        # https://github.com/marketplace/actions/changelog-checker
+        uses: Zomzog/changelog-checker@v1.2.0
+        with:
+          fileName: pack.yaml
+          checkNotification: Simple
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

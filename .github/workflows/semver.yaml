@@ -51,3 +51,4 @@ jobs:
           THAT="$(git show origin/${GITHUB_BASE_REF}:pack.yaml | yq -r .version)"
           echo "::notice::THIS=$THIS"
           echo "::notice::THAT=$THAT"
+          python3 -c 'import semver, sys; assert semver.compare(sys.argv[1], sys.argv[2]) == 1' $THIS $THAT

@@ -1,9 +1,10 @@
 name: semver
 
 on:
-  push:
-    branches:
-      - semver
+  pull_request:
+    types:
+      - opened
+      - synchronize
 
 jobs:
   semver:

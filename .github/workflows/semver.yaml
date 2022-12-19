@@ -20,6 +20,15 @@ jobs:
       - run: |
           pip3 install yq
 
+      - name: Changelog check
+        # https://github.com/marketplace/actions/changelog-checker
+        uses: Zomzog/changelog-checker@v1.2.0
+        with:
+          fileName: CHANGELOG.md
+          checkNotification: Simple
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Pack check
         # https://github.com/marketplace/actions/changelog-checker
         uses: Zomzog/changelog-checker@v1.2.0

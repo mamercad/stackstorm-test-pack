@@ -11,18 +11,20 @@ jobs:
     runs-on: ubuntu-20.04
     steps:
 
-      - uses: actions/checkout@v3
+      - name: Checkout
+        uses: actions/checkout@v3
         with:
           depth: 0
         # with:
         #   ref: ${{ github.ref }}
 
-      - uses: actions/setup-python@v4
+      - name: Setup Python
+        uses: actions/setup-python@v4
         with:
           python-version: "3.8"
           cache: pip
 
-      - name: Changelog check
+      - name: Ensure CHANGELOG.md changed
         # https://github.com/marketplace/actions/changelog-checker
         uses: Zomzog/changelog-checker@v1.2.0
         with:
@@ -31,7 +33,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Pack check
+      - name: Ensure pack.yaml changed
         # https://github.com/marketplace/actions/changelog-checker
         uses: Zomzog/changelog-checker@v1.2.0
         with:
@@ -40,9 +42,12 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - run: |
+      - name: Ensure semver increased
+        run: |
           pip3 install yq semver
           THIS="$(yq -r .version <pack.yaml)"
+          git fetch --all
+          echo "::notice::jGITHUB_BASE_REF=${GITHUB_BASE_REF}"
           THAT="$(git show origin/${GITHUB_BASE_REF}:pack.yaml | yq -r .version)"
-          echo "THIS: $THIS"
-          echo "THAT: $THAT"
+          echo "::notice::THIS=$THIS"
+          echo "::notice::THAT=$THAT"

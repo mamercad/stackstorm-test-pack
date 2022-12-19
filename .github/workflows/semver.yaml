@@ -7,7 +7,7 @@ on:
       - synchronize
 
 jobs:
-  semver:
+  versioning-checks:
     runs-on: ubuntu-20.04
     steps:
 
@@ -42,7 +42,6 @@ jobs:
 
       - name: Ensure semver increased
         run: |
-          # git fetch --all
           pip3 install yq semver
           PROPOSE_VERSION="$(yq -r .version <pack.yaml)"
           CURRENT_VERSION="$(git show origin/${GITHUB_BASE_REF}:pack.yaml | yq -r .version)"

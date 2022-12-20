@@ -1,10 +1,10 @@
 name: Versioning Checks
 
 on:
-  # pull_request:
-  #   types:
-  #     - opened
-  #     - synchronize
+  pull_request:
+    types:
+      - opened
+      - synchronize
   workflow_dispatch:
 
 jobs:
@@ -13,8 +13,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
+        # with:
+        #   fetch-depth: 0
 
       # - name: Setup Python
       #   uses: actions/setup-python@v4
@@ -22,29 +22,41 @@ jobs:
       #     python-version: "3.8"
       #     cache: pip
 
-      - name: Ensure CHANGELOG.md changed
-        uses: Zomzog/changelog-checker@v1.3.0 # https://github.com/marketplace/actions/changelog-checker
+      - name: Verify Changed files
+        uses: tj-actions/verify-changed-files@v13
+        id: verify-changed-files
         with:
-          fileName: CHANGELOG.md
-          checkNotification: Simple
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          files: |
+            CHANGELOG.md
 
-      - name: Ensure pack.yaml changed
-        uses: Zomzog/changelog-checker@v1.3.0 # https://github.com/marketplace/actions/changelog-checker
-        with:
-          fileName: pack.yaml
-          checkNotification: Simple
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Ensure semver increased
+      - name: Perform action when CHANGELOG.md changes
+        if: contains(steps.verify-changed-files.outputs.changed_files, 'CHANGELOG.md')
         run: |
-          # pip3 install yq semver
-          PROPOSE_VERSION="$(yq -r .version <pack.yaml)"
-          CURRENT_VERSION="$(git show origin/${GITHUB_BASE_REF}:pack.yaml | yq -r .version)"
-          echo "::notice::Proposed pack version is ${PROPOSE_VERSION}"
-          echo "::notice::Current pack version is ${CURRENT_VERSION}"
-          # Ensure PROPOSE_VERSION > CURRENT_VERSION
-          python3 -c 'import semver, sys; assert semver.compare(sys.argv[1], sys.argv[2]) == 1' \
-            $PROPOSE_VERSION $CURRENT_VERSION
+          echo "CHANGELOG.md has been changed"
+
+      # - name: Ensure CHANGELOG.md changed
+      #   uses: Zomzog/changelog-checker@v1.3.0 # https://github.com/marketplace/actions/changelog-checker
+      #   with:
+      #     fileName: CHANGELOG.md
+      #     checkNotification: Simple
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      # - name: Ensure pack.yaml changed
+      #   uses: Zomzog/changelog-checker@v1.3.0 # https://github.com/marketplace/actions/changelog-checker
+      #   with:
+      #     fileName: pack.yaml
+      #     checkNotification: Simple
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      # - name: Ensure semver increased
+      #   run: |
+      #     # pip3 install yq semver
+      #     PROPOSE_VERSION="$(yq -r .version <pack.yaml)"
+      #     CURRENT_VERSION="$(git show origin/${GITHUB_BASE_REF}:pack.yaml | yq -r .version)"
+      #     echo "::notice::Proposed pack version is ${PROPOSE_VERSION}"
+      #     echo "::notice::Current pack version is ${CURRENT_VERSION}"
+      #     # Ensure PROPOSE_VERSION > CURRENT_VERSION
+      #     python3 -c 'import semver, sys; assert semver.compare(sys.argv[1], sys.argv[2]) == 1' \
+      #       $PROPOSE_VERSION $CURRENT_VERSION

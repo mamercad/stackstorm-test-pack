@@ -10,21 +10,19 @@ jobs:
   versioning-checks:
     runs-on: ubuntu-20.04
     steps:
-
       - name: Checkout
         uses: actions/checkout@v3
         with:
           fetch-depth: 0
 
-      - name: Setup Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: "3.8"
-          cache: pip
+      # - name: Setup Python
+      #   uses: actions/setup-python@v4
+      #   with:
+      #     python-version: "3.8"
+      #     cache: pip
 
       - name: Ensure CHANGELOG.md changed
-        # https://github.com/marketplace/actions/changelog-checker
-        uses: Zomzog/changelog-checker@v1.3.0
+        uses: Zomzog/changelog-checker@v1.3.0 # https://github.com/marketplace/actions/changelog-checker
         with:
           fileName: CHANGELOG.md
           checkNotification: Simple
@@ -32,8 +30,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Ensure pack.yaml changed
-        # https://github.com/marketplace/actions/changelog-checker
-        uses: Zomzog/changelog-checker@v1.3.0
+        uses: Zomzog/changelog-checker@v1.3.0 # https://github.com/marketplace/actions/changelog-checker
         with:
           fileName: pack.yaml
           checkNotification: Simple
@@ -42,7 +39,7 @@ jobs:
 
       - name: Ensure semver increased
         run: |
-          pip3 install yq semver
+          # pip3 install yq semver
           PROPOSE_VERSION="$(yq -r .version <pack.yaml)"
           CURRENT_VERSION="$(git show origin/${GITHUB_BASE_REF}:pack.yaml | yq -r .version)"
           echo "::notice::Proposed pack version is ${PROPOSE_VERSION}"

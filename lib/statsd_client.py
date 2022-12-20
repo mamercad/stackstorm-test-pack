@@ -1,6 +1,6 @@
 import statsd
 import time
-from datetime import datetime
+
 
 class StatsDClient:
     def __init__(self, host="localhost", port=9125):

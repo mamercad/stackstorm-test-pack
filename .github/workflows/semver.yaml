@@ -13,8 +13,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-        # with:
-        #   fetch-depth: 0
+        with:
+          fetch-depth: 0
 
       # - name: Setup Python
       #   uses: actions/setup-python@v4
@@ -22,17 +22,15 @@ jobs:
       #     python-version: "3.8"
       #     cache: pip
 
-      - name: Verify Changed files
-        uses: tj-actions/verify-changed-files@v13
-        id: verify-changed-files
-        with:
-          files: |
-            CHANGELOG.md
+      - name: Get changed files
+        id: changed-files
+        uses: tj-actions/changed-files@v35
 
-      - name: Perform action when CHANGELOG.md changes
-        if: contains(steps.verify-changed-files.outputs.changed_files, 'CHANGELOG.md')
+      - name: List all changed files
         run: |
-          echo "CHANGELOG.md has been changed"
+          for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
+            echo "$file was changed"
+          done
 
       # - name: Ensure CHANGELOG.md changed
       #   uses: Zomzog/changelog-checker@v1.3.0 # https://github.com/marketplace/actions/changelog-checker

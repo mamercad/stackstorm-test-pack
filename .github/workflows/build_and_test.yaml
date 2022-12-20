@@ -16,6 +16,6 @@ jobs:
       enable-common-libs: true
       #apt-cache-version: v0
       #py-cache-version: v0
-      token: ${{ secrets.GITHUB_TOKEN }}
+      token: ${{ github.token }}
     # secrets:
     #   token: ${{ secrets.GITHUB_TOKEN }}

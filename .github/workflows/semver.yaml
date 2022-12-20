@@ -33,13 +33,13 @@ jobs:
           done
 
       - name: Ensure CHANGES.md has been changed
-        if: ! contains(steps.changed-files.outputs.all_changed_files, 'CHANGES.md')
+        if: ${{ !contains(steps.changed-files.outputs.all_changed_files, 'CHANGES.md') }}
         run: |
           echo "::error::CHANGES.md needs updating"
           exit 1
 
       - name: Ensure pack.yaml has been changed
-        if: ! contains(steps.changed-files.outputs.all_changed_files, 'pack.yaml')
+        if: ${{ !contains(steps.changed-files.outputs.all_changed_files, 'pack.yaml') }}
         run: |
           echo "::error::pack.yaml needs updating"
           exit 1

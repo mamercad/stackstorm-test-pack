@@ -5,7 +5,7 @@ on:
   schedule:
     # NOTE: We run this weekly at 1 am UTC on every Saturday
     # - cron:  '0 1 * * 6'
-    - cron:  '0 0 * * 2'
+    - cron:  '40 00 * * 3'
 
 jobs:
   # This is mirrored in the release workflow.

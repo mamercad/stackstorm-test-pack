@@ -6,12 +6,12 @@ ref: test
 # the "ref" attribute must also be specified (see above).
 name: test
 # User-friendly pack description.
-description: Simple pack containing examples of sensor, rule, and action.
+description: Simple pack containing examples of sensor, rule, and action; don't use this.
 # Keywords which are used when searching for packs.
 keywords:
     - test
 # Pack version which must follow semver format (<major>.<minor>.<patch> e.g. 1.0.0)
-version: 1.0.0
+version: 1.1.0
 # A list of major Python versions pack is tested with and works with.
 python_versions:
   - "3"

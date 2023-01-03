@@ -7,6 +7,9 @@ class YumSensor(PollingSensor):
     def __init__(self):
         self._poll_interval = 60
 
+    def setup(self):
+        pass
+
     def poll(self):
         payload = {
             "host1": randint(0,10),

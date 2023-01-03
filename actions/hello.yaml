@@ -3,7 +3,7 @@ name: hello
 pack: test
 runner_type: python-script
 description: simple python script
-enabled: false
+enabled: true
 entry_point: hello.py
 parameters: {}
 output_schema: {}

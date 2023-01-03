@@ -3,6 +3,10 @@ from st2reactor.sensor.base import PollingSensor
 
 
 class YumSensor(PollingSensor):
+    def __init__(self, sensor_service, config, poll_interval=20):
+        super(YumSensor, self).__init__(
+            sensor_service=sensor_service, config=config, poll_interval=poll_interval
+    )
 
     def setup(self):
         pass

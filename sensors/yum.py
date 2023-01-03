@@ -5,7 +5,7 @@ from st2reactor.sensor.base import PollingSensor
 class YumSensor(PollingSensor):
 
     def __init__(self):
-        self._poll_interval = 60
+        pass
 
     def setup(self):
         pass
@@ -18,7 +18,7 @@ class YumSensor(PollingSensor):
             "host4": randint(0,10),
             "host5": randint(0,10),
         }
-        self.sensor_service.dispatch(trigger=self._trigger_ref, payload=payload)
+        self._sensor_service.dispatch(trigger=self._trigger_ref, payload=payload)
 
     def cleanup(self):
         # This is called when the st2 system goes down. You can perform cleanup operations like

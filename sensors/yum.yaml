@@ -2,6 +2,7 @@
 class_name: "YumSensor"
 entry_point: "yum.py"
 description: "Test sensor that emits triggers."
+polling_interval: 60
 trigger_types:
   - name: "yum"
     description: "An example trigger."

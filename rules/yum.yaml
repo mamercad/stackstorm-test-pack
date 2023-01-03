@@ -1,0 +1,18 @@
+---
+name: yum
+pack: test
+description: Rule on test.event1
+enabled: true
+
+trigger:
+    type: test.yum
+
+criteria:
+    trigger.host1:
+        type: greaterthan
+        pattern: 0
+
+action:
+    ref: core.echo
+    parameters:
+        message: "host1 needs yum update for {{ trigger.host1 }} packages"

@@ -4,9 +4,6 @@ from st2reactor.sensor.base import PollingSensor
 
 class YumSensor(PollingSensor):
 
-    def __init__(self):
-        pass
-
     def setup(self):
         pass
 

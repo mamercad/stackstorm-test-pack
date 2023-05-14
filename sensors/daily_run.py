@@ -5,7 +5,8 @@ class DailyRunSensor(PollingSensor):
     def __init__(self, sensor_service, config, poll_interval=60):
         super(DailyRunSensor, self).__init__(
             sensor_service=sensor_service, config=config, poll_interval=poll_interval
-    )
+        )
+        self._trigger_ref = "daily.run"
 
     def setup(self):
         pass

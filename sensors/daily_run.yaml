@@ -4,7 +4,7 @@ entry_point: "daily_run.py"
 description: "Test sensor that emits triggers."
 polling_interval: 60
 trigger_types:
-  - name: "daily.run"
+  - name: "daily_run"
     description: "An example trigger."
     payload_schema:
       type: "object"

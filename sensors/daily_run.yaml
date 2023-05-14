@@ -3,8 +3,8 @@ class_name: "DailyRunSensor"
 entry_point: "daily_run.py"
 description: "Test sensor that emits triggers."
 polling_interval: 60
-# trigger_types:
-#   - name: "yum"
-#     description: "An example trigger."
-#     payload_schema:
-#       type: "object"
+trigger_types:
+  - name: "daily.run"
+    description: "An example trigger."
+    payload_schema:
+      type: "object"

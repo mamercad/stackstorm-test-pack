@@ -7,6 +7,12 @@ class RunCountLock:
         self.now = datetime.now()
         self.lock_path = lock_path
 
+        self.dirname = os.path.dirname(self.lock_path)
+        if not os.path.exists(self.dirname):
+            os.makedirs(self.dirname, exist_ok=True)
+
+        self.basename = os.path.basename(self.lock_path)
+
         if not os.path.exists(self.lock_path):
             with open(self.lock_path, "w") as f:
                 f.write("0\n")

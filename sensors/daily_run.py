@@ -32,8 +32,8 @@ class DailyRunSensor(PollingSensor):
                 "count": count,
                 "dispatch": False,
             }
-        if count < 10:
-            self.sensor_service.dispatch(trigger=self._trigger_ref, payload=payload)
+        # if count < 10:
+        self.sensor_service.dispatch(trigger=self._trigger_ref, payload=payload)
 
     def cleanup(self):
         # This is called when the st2 system goes down. You can perform cleanup operations like

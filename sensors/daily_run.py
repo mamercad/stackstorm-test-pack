@@ -21,7 +21,7 @@ class DailyRunSensor(PollingSensor):
             "foo": "bar",
             "count": self.rcl.count(),
         }
-        if self.rcl.count() < 10:
+        if int(self.rcl.count()) < 10:
             payload = {
                 "count": self.rcl.count(),
                 "dispatch": True,

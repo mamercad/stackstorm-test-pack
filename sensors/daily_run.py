@@ -16,10 +16,11 @@ class DailyRunSensor(PollingSensor):
         )
 
     def poll(self):
+        self.rcl.increment()
         payload = {
             "foo": "bar",
+            "count": self.rcl.count(),
         }
-        # self.rcl.increment()
         # if self.rcl.count() < 10:
         #     payload = {
         #         "run_count": self.rcl.count(),

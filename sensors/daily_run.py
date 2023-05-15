@@ -17,21 +17,18 @@ class DailyRunSensor(PollingSensor):
 
     def poll(self):
         self.rcl.increment()
-        payload = {
-            "foo": "bar",
-            "count": self.rcl.count(),
-        }
-        if int(self.rcl.count()) < 10:
+        count = int(self.rcl.count())
+        if count < 10:
             payload = {
-                "count": self.rcl.count(),
+                "count": count,
                 "dispatch": True,
             }
         else:
             payload = {
-                "count": self.rcl.count(),
+                "count": count,
                 "dispatch": False,
             }
-        if self.rcl.count() < 10:
+        if count < 10:
             self.sensor_service.dispatch(trigger=self._trigger_ref, payload=payload)
 
     def cleanup(self):

@@ -25,7 +25,7 @@ class RunCountLock:
 
         self.lock_file = open(self.lock_path, "r+")
 
-    def count(self) -> int:
+    def count(self):
         self.lock_file.seek(0)
         return self.lock_file.readlines()[-1].strip()
 

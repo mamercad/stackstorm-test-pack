@@ -1,5 +1,5 @@
 from datetime import datetime
-# from run_count_lock import RunCountLock
+from run_count_lock import RunCountLock
 from st2reactor.sensor.base import PollingSensor
 
 
@@ -11,10 +11,9 @@ class DailyRunSensor(PollingSensor):
         self._trigger_ref = "test.daily_run"
 
     def setup(self):
-        pass
-        # self.rcl = RunCountLock(
-        #     lock_path=f"/tmp/test_daily_run/{datetime.today().strftime('%Y-%m-%d')}"
-        # )
+        self.rcl = RunCountLock(
+            lock_path=f"/tmp/test_daily_run/{datetime.today().strftime('%Y-%m-%d')}"
+        )
 
     def poll(self):
         payload = {

@@ -19,21 +19,10 @@ class DailyRunSensor(PollingSensor):
         self.rcl.increment()
         count = int(self.rcl.count())
         payload = {
-            "foo": "bar",
             "count": count,
         }
-        if count < 10:
-            payload = {
-                "count": count,
-                "dispatch": True,
-            }
-        else:
-            payload = {
-                "count": count,
-                "dispatch": False,
-            }
-        # if count < 10:
-        self.sensor_service.dispatch(trigger=self._trigger_ref, payload=payload)
+        if count < 30:
+            self.sensor_service.dispatch(trigger=self._trigger_ref, payload=payload)
 
     def cleanup(self):
         # This is called when the st2 system goes down. You can perform cleanup operations like
